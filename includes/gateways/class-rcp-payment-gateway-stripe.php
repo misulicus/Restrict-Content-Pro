@@ -155,9 +155,9 @@ class RCP_Payment_Gateway_Stripe extends RCP_Payment_Gateway {
 
 				}
 
-				if ( ! empty( $this->fee ) ) {
+				if ( ! empty( $this->signup_fee ) ) {
 
-					if( $this->fee > 0 ) {
+					if( $this->signup_fee > 0 ) {
 						$description = sprintf( __( 'Signup Fee for %s', 'rcp_stripe' ), $this->subscription_name );
 					} else {
 						$description = sprintf( __( 'Signup Discount for %s', 'rcp_stripe' ), $this->subscription_name );
@@ -165,7 +165,7 @@ class RCP_Payment_Gateway_Stripe extends RCP_Payment_Gateway {
 
 					\Stripe\InvoiceItem::create( array(
 							'customer'    => $customer->id,
-							'amount'      => $this->fee * 100,
+							'amount'      => $this->signup_fee * 100,
 							'currency'    => strtolower( $this->currency ),
 							'description' => $description
 						)
