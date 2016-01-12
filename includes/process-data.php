@@ -22,7 +22,12 @@ function rcp_process_data() {
 			if( ! current_user_can( 'rcp_manage_levels' ) ) {
 				wp_die( __( 'You do not have permission to perform this action.', 'rcp' ) );
 			}
-
+			
+			if( empty( $_POST['name'] ) || empty( $_POST['duration'] ) || empty( $_POST['price'] ) ) {
+				$url = get_bloginfo('wpurl') . '/wp-admin/admin.php?page=rcp-member-levels&rcp_message=level_missing_fields';
+				wp_safe_redirect( $url ); exit;
+			}
+			
 			$levels = new RCP_Levels();
 
 			$add = $levels->insert( $_POST );
